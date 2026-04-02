@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# ─────────────────────────────────────────────────────────────────────────────
+# Theo Code — Terminal Launcher
+# Built by Theodore Quinlan · Newcastle University
+# Powered by NVIDIA NIM · Qwen3-Coder 480B · Nemotron Ultra 253B
+# ─────────────────────────────────────────────────────────────────────────────
+
+THEOCODE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROXY_DIR="$HOME/free-claude-code"
+PROXY_PORT=8082
+
+# Check proxy is alive, start if not
+if ! curl -s --max-time 2 "http://localhost:${PROXY_PORT}/health" > /dev/null 2>&1; then
+    echo -e "\033[38;5;220m  Starting Theo Code proxy...\033[0m"
+    cd "$PROXY_DIR" && \
+        nohup .venv/bin/python -m uvicorn server:app \
+            --host 0.0.0.0 --port "$PROXY_PORT" \
+            > /tmp/theocode_proxy.log 2>&1 &
+    # Wait up to 8s for proxy to be ready
+    for i in {1..8}; do
+        sleep 1
+        if curl -s --max-time 1 "http://localhost:${PROXY_PORT}/health" > /dev/null 2>&1; then
+            echo -e "\033[38;5;82m  Proxy ready.\033[0m"
+            break
+        fi
+    done
+fi
+
+# Run Theo Code
+export ANTHROPIC_BASE_URL="http://localhost:${PROXY_PORT}"
+cd "$THEOCODE_DIR"
+exec python3 -m src.theocode "$@"
