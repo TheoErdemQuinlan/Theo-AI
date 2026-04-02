@@ -8,3 +8,33 @@ build/
 .venv/
 venv/
 .theocode_history
+
+# Node
+node_modules/
+npm-debug.log
+*.vsix
+
+# Build output (keep src, exclude compiled)
+vscode-extension/out/
+
+# UI build output
+ui/dist/
+
+# Agent library: exclude large binaries/media but keep source code
+agent-library/**/*.png
+agent-library/**/*.jpg
+agent-library/**/*.jpeg
+agent-library/**/*.gif
+agent-library/**/*.mp4
+agent-library/**/*.webp
+agent-library/**/*.svg
+agent-library/**/*.lock
+agent-library/**/uv.lock
+agent-library/**/bun.lock
+agent-library/**/package-lock.json
+agent-library/**/__pycache__/
+agent-library/**/.venv/
+agent-library/**/node_modules/
+
+# Raw source zip (large, already extracted)
+theo-code-src/

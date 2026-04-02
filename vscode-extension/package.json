@@ -1,0 +1,107 @@
+{
+  "name": "theo-code",
+  "displayName": "Theo Code",
+  "description": "Sovereign Coding Intelligence — powered by NVIDIA NIM",
+  "version": "1.0.0",
+  "publisher": "TheoErdemQuinlan",
+  "author": "Theodore Quinlan <t.quinlan@newcastle.ac.uk>",
+  "engines": { "vscode": "^1.85.0" },
+  "categories": ["AI", "Chat"],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./out/extension.js",
+  "icon": "media/icon.png",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "theocode",
+          "title": "Theo Code",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "theocode": [
+        {
+          "type": "webview",
+          "id": "theocode.chatView",
+          "name": "Theo Code",
+          "retainContextWhenHidden": true
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "theocode.openChat",
+        "title": "Open Theo Code",
+        "category": "Theo Code",
+        "icon": "$(sparkle)"
+      },
+      {
+        "command": "theocode.clearChat",
+        "title": "Clear Conversation",
+        "category": "Theo Code",
+        "icon": "$(clear-all)"
+      },
+      {
+        "command": "theocode.newSession",
+        "title": "New Session",
+        "category": "Theo Code",
+        "icon": "$(add)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "theocode.clearChat",
+          "when": "view == theocode.chatView",
+          "group": "navigation"
+        },
+        {
+          "command": "theocode.newSession",
+          "when": "view == theocode.chatView",
+          "group": "navigation"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "theocode.openChat",
+          "group": "theocode"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "theocode.openChat",
+        "key": "ctrl+shift+t",
+        "mac": "cmd+shift+t"
+      }
+    ],
+    "configuration": {
+      "title": "Theo Code",
+      "properties": {
+        "theocode.proxyUrl": {
+          "type": "string",
+          "default": "http://localhost:8082",
+          "description": "NVIDIA NIM proxy URL"
+        },
+        "theocode.model": {
+          "type": "string",
+          "default": "claude-sonnet-4-5",
+          "description": "Model name (remapped to Qwen3-Coder 480B by proxy)"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "npx @vscode/vsce package --no-dependencies"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {}
+}

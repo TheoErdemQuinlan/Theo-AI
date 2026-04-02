@@ -1,0 +1,39 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #0d0d0d;
+  --bg2:       #141414;
+  --bg3:       #1a1a1a;
+  --bg4:       #222222;
+  --border:    #2a2a2a;
+  --border2:   #333333;
+  --navy:      #1a6bb5;
+  --navy-dim:  #0f4a8a;
+  --gold:      #d4a017;
+  --gold-dim:  #a07810;
+  --cyan:      #22d3ee;
+  --green:     #22c55e;
+  --red:       #ef4444;
+  --gray:      #6b7280;
+  --gray2:     #9ca3af;
+  --text:      #e5e7eb;
+  --text-dim:  #9ca3af;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+  --font-ui:   -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  line-height: 1.5;
+  overflow: hidden;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gray); }
